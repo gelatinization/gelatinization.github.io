@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Prosjekter</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/topbar.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/grid.css">
+    </head>
+    <body>
+        <div id="imgClose"></div>
+        <div id="head">
+            <h1 id="tittel">Min Kunst</h1>
+            <ul id="index">
+                <a href="index.html"><li id="indexNavn">Hjem</li></a>
+                <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+                <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+                <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+            </ul>
+        </div>
+        <div id="imgClose"></div>
+        <div id="main">
+            <div id="info">
+                <h1>Beskrivelse</h1>
+                <p>På denne siden kan man se bilder av ulike av mine kunstneriske prosjekter</p>
+            </div>
+            <div id="bilder">
+            </div>
+            <div id="last">
+                <div id="button">
+                    <button id="loadMore" class="button">Last inn fler</button>
+                </div>
+                <p id="imgInfo"></p>
+            </div>
+        </div>
+    </body>
+    <script>
+        let bildeEl = document.querySelector("#bilder")
+        let bildeListe = ["animals","bi","book","book1","book2","brain","brainded","bugs","cloud","crown","darth","eye","fallnecklace","forest","foresty","france","france2","galaxy","galaxy2","gingerbread","goodomens","guts","heart","heartstopper","hedwig","jinx","jinx2","jinx3","liver","loveheart","lungs","npt","patch","seamap1","seamap2","seaworld","ship","shit1","shit2","shroom","shroom2","skull","star1","star2","sunset","teacups","tmavest","train1","train2","tree","turtle","tv","vhs"]
+        let total = bildeListe.length;
+        let tekst = "";
+        let bredde = 3;
+        let hoyde = 4;
+        let counter = 0;
+        function addImg() {
+            if (bildeListe.length >= bredde*hoyde) {
+                for (let j = 0; j < bredde; j++) {
+                    for (let i = 0; i < hoyde; i++) {
+                        let element = bildeListe.shift();
+                        tekst += "<img src='ressurser/kunstbilder/" + element +".png' id='"+element+"' class='bilde'>";
+                        counter++;
+                    }
+                    document.querySelector("#row"+String(j)).innerHTML += tekst;
+                    tekst = "";
+                }    
+            } else {
+                let lengde = bildeListe.length;
+                for (let j = 0; j < bredde; j++) {
+                    lengde = bildeListe.length;
+                    for (let i = 0; i < lengde/(bredde-j); i++) {
+                        if (bildeListe.length > 0) {
+                            let element = bildeListe.shift();
+                            tekst += "<img src='ressurser/kunstbilder/" + element +".png' id='"+element+"' class='bilde'>";
+                            counter++;
+                        }
+                    }
+                    document.querySelector("#row"+String(j)).innerHTML += tekst;
+                    tekst = "";
+                }  
+            }
+            bildeEls= document.querySelectorAll(".bilde"); 
+            for (i=0;i<bildeEls.length;i++) {
+                bildeEls[i].addEventListener("click",vis)
+            }
+            document.querySelector("#imgInfo").innerHTML = "Viser " + counter + " av " + total + " Bilder";
+            if (counter === total) {
+                document.querySelector("#loadMore").style.display = "none";
+            }
+        }
+        for (i=0;i<bredde;i++) {
+            bildeEl.innerHTML += "<div id='row"+String(i)+"' class='column'></div>"
+        }
+        console.log(screen.width)
+        if (screen.width <= 425) {
+            bredde = 2;
+            hoyde = 5
+        }
+        addImg();
+        document.querySelector("#loadMore").addEventListener("click",addImg);
+        
+        let rader = document.querySelectorAll(".column")
+        for (i = 0;i < rader.length; i++) {
+            if (i < bredde) {
+                rader[i].style.width = 100/(bredde)+"%"
+            } else {
+                rader[i].style.display = "none";
+            }
+            
+        }
+
+
+        function vis(event) {
+            let imgId = event.target.id;
+            window.open("ressurser/kunstbilder/"+String(imgId)+".png");
+        }
+    </script>
+     <script src="scripts/koder.js"></script>
+     <script src="scripts/topbar.js"></script>
+     <script>
+         window.onload = function() {
+             let tekstVal = document.querySelector("#tittel").innerHTML;
+             setInterval(draw, 50, tekstVal);
+             setTimeout(function() {
+                 document.querySelector("#load").remove();
+                 document.querySelector("body").style.overflowY = "visible";               
+             },150);
+         };
+     </script>
+</html>

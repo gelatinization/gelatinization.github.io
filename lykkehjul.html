@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lykkehjul</title>
+    <link rel="stylesheet" href="styles/lykkehjul.css">
+    <link rel="stylesheet" href="styles/topbar.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/fonts.css">
+</head>
+<body>
+    <div id="head">
+        <h1 id="tittel">LYKKEHJUL</h1>
+        <ul id="index">
+            <a href="index.html"><li id="indexNavn">Hjem</li></a>
+            <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+            <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+            <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+        </ul>
+    </div>
+    <div id="main">
+        <div id="faktiskHele">
+            <div id="hele">
+                <div id="hjul"></div>
+                <div id="pil"></div>
+            </div>
+            <div id="sidebar">
+                <button id="spin" class="button">Spin</button>
+                <input type="range" min="5" max="50" id="antall" value="6">
+                <textarea id="inn" rows="4"></textarea>
+            </div>
+        </div>
+        <h3 id="svar"></h3>
+    </div>
+    <script>
+        let i = 0;
+        let hjulGrader;
+        let del;
+        const farger = ["#1d3764", "#0083b2", "#4ca9d1", "#00638b", "#00b0c5", "#4ed8ea", "#008a9f", "#4adcc6", "#89f6e0", "#1db49e"];
+        const words = ["null", "en", "to", "tre", "fire", "fem", "seks", "syv", "åtte", "ni","ti", "elleve", "tolv", "tretten", "fjorten", "femten", "seksten", "sytten", "atten", "nitten","tjue", "tjueen", "tjueto", "tjuetre", "tjuefire", "tjuefem", "tjueseks", "tjuesyv", "tjueåtte", "tjueni","tretti", "trettien", "trettitto", "trettitre", "trettifire", "trettifem", "trettiseks", "trettisyv", "trettiåtte", "trettini","førti", "førtien", "førtito", "førtitre", "førtifire", "førtifem", "førtiseks", "førtisyv", "førtiåtte", "førtini"];
+        let ord = [];
+        let hjulEl = document.querySelector("#hjul");
+        let slidEl = document.querySelector("#antall");
+        let innEl = document.querySelector("#inn");
+
+        document.querySelector("#spin").addEventListener("click",spin);
+        slidEl.addEventListener("input",lagHjul);
+        innEl.addEventListener("keyup",update)
+
+        function update() {
+            ord = [];
+            let verdi = innEl.value;
+            while ((verdi.includes("\n"))) {
+                let iNtr = verdi.indexOf("\n");
+                let nyord = verdi.substr(0,iNtr);
+                verdi = verdi.substr(iNtr);
+                ord.push(nyord)
+                while ((verdi.indexOf(",")===0) || (verdi.indexOf(" ")===0) || (verdi.indexOf("\n")===0)) { //fjerner første tegn hvis det er , eller mellomrom
+                    verdi = verdi.substr(1);
+                }
+            }
+            ord.push(verdi);
+            lagHjul();
+        }
+
+        function lagHjul() {
+            hjulEl.innerHTML = "";
+            del = slidEl.value;
+            hjulGrader = 360/del;
+            let bredde = -250*(Math.sin(hjulGrader*Math.PI/360)/Math.sin((hjulGrader*Math.PI-180*Math.PI)/360))+2;
+            for (i = 0; i<del;i++) {
+                if (ord[i] !== undefined) {
+                    skriv = ord[i]
+                } else {
+                    skriv = "";
+                };
+                hjulEl.innerHTML += "<div class='holder' id='"+words[i]+"'><div class='del'></div><p class='delTekst'>"+skriv+ "</p></div>"
+                document.querySelector("#"+String(words[i])).style.transform = "rotate("+hjulGrader*i+"deg)"
+                document.querySelector("#"+String(words[i])+"> div").style.borderTop = "250px solid "+farger[i%farger.length];
+                document.querySelector("#"+String(words[i])+"> div").style.borderLeft = bredde +"px solid transparent";
+                document.querySelector("#"+String(words[i])+"> div").style.borderRight = bredde +"px solid transparent";
+                document.querySelector("#"+String(words[i])+"> div").style.left = 250-bredde + "px";
+            }
+        }
+
+        lagHjul();
+
+
+        let rotasjon;
+        let win;
+        function spin() {
+            document.querySelector("#spin").removeEventListener("click",spin); // unngår spamclicking
+            j = 0;
+            rotasjon = Math.floor(Math.random()*360)+570;
+            loopIteration();
+        }
+
+        function loopIteration() {
+                let add = Math.floor((rotasjon-j)/rotasjon*5+1);
+                j+= add;
+                //if ((rotasjon-i)>360) {}
+                hjulEl.style.transform = "rotate("+(j)+"deg)";
+                let speed = j/rotasjon*20;
+                if (j < rotasjon) {
+                    setTimeout(loopIteration, speed);
+                } else {
+                    rotasjon = (rotasjon-hjulGrader/2)%360;
+                    win = del-Math.floor(rotasjon/hjulGrader)-1;
+                    console.log(rotasjon,win)
+                    document.querySelector("#spin").addEventListener("click",spin);
+                    document.querySelector("#svar").innerHTML = ord[win]+" har vunnet!";
+                }
+            }
+    </script>
+    <script src="scripts/koder.js"></script>
+    <script src="scripts/topbar.js"></script>
+    <script>
+        window.onload = function() {
+            let tekstVal = document.querySelector("#tittel").innerHTML;
+            setInterval(draw, 50, tekstVal);
+            setTimeout(function() {
+                document.querySelector("#load").remove();
+                document.querySelector("body").style.overflowY = "visible";               
+            },150);
+        };
+    </script>
+</body>
+</html>

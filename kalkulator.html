@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang='no'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Kalkulator</title>
+    <link rel="stylesheet" href="styles/topbar.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/fonts.css">
+    <link rel="stylesheet" href="styles/kalkulator.css">
+</head>
+<body>
+    <div id="head">
+        <h1 id="tittel">HJEM</h1>
+        <ul id="index">
+            <a href="index.html"><li id="indexNavn">Hjem</li></a>
+            <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+            <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+            <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+        </ul>
+    </div>
+    <div id="main">
+        <h1>Skriv inn et regnestykke med to tall</h1>
+        <div id="innFelt">
+            <input id="idInn" type="text" maxlength="16">
+        </div>
+        <div id="kalkulator">
+            <div id="id1"><p>1</p></div>
+            <div id="id2"><p>2</p></div>
+            <div id="id3"><p>3</p></div>
+            <div id="idPluss"><p>+</p></div>
+            <div id="id4"><p>4</p></div>
+            <div id="id5"><p>5</p></div>
+            <div id="id6"><p>6</p></div>
+            <div id="id-"><p>-</p></div>
+            <div id="id7"><p>7</p></div>
+            <div id="id8"><p>8</p></div>
+            <div id="id9"><p>9</p></div>
+            <div id="idGange"><p>*</p></div>
+            <div id="idKomma"><p>.</p></div>
+            <div id="id0"><p>0</p></div>
+            <div id="idEnter"><p>=</p></div>
+            <div id="idDele"><p>/</p></div>
+        </div>
+    </div>
+<script>
+    let innEl = document.querySelector("#idInn");
+    let tilbakeEl = document.querySelector("#idTilbake")
+    let ipluss;
+    let operation;
+    let tegn = ["1","2","3","4","5","6","7","8","9","0","-","Enter"];
+    let tegnListe = ["1","2","3","4","5","6","7","8","9","0","-","Enter",".","*","/","+"];
+    let knappId;
+    innEl.focus();
+    innEl.addEventListener("keydown",innfunk);
+    innEl.addEventListener("keyup",utfunk);
+    function finnId(key) {
+        if (tegn.includes(key)) {
+            knappId = document.querySelector("#id"+String(key));
+        } else if (key === "+") {
+            knappId = document.querySelector("#idPluss");
+        } else if (key === "*") {
+            knappId = document.querySelector("#idGange");
+        } else if (key === "/") {
+            knappId = document.querySelector("#idDele");
+        } else if ((key === ".") || (key === ",")) {
+            knappId = document.querySelector("#idKomma");
+        } else {
+            knappId = null;
+        }
+    }
+
+    for (i = 0; i < tegnListe.length;i++) {
+        finnId(tegnListe[i]);
+        knappId.addEventListener("click",knappFunk);
+    }
+    function knappFunk(event) {
+
+        if (event.srcElement.innerText != "=") {
+            if (innEl.value.length < 16) {
+                innEl.value += event.srcElement.innerText;
+            }
+        } else if (event.srcElement.innerText === "=") {
+            regnUt();
+        }
+        innEl.focus();
+    }
+
+    function utfunk(event) {
+        finnId(event.key);
+        if (knappId != null) {
+            knappId.style.opacity = "100%";
+        } 
+        if (event.key === "=") {
+            innEl.value = innEl.value.slice(0,-1);
+            regnUt();
+        }
+    }
+
+    function regnUt() {
+        let tekst = innEl.value;
+        innEl.value = "";
+        
+        if (tekst.includes(",")) { //finner og bytter ut komma
+            tekst = tekst.replaceAll(",",".")
+        }
+    
+        if (tekst.includes("+")) { //Finner hvilken regneoperator og plassering
+            iOp = tekst.indexOf("+");
+            operation = "+";
+        } else if (tekst.includes("*")) {
+            iOp = tekst.indexOf("*");
+            operation = "*";
+        } else if (tekst.includes("/")) {
+            iOp = tekst.indexOf("/");
+            operation = "/";
+        } else if (tekst.includes("-")) {
+            for (i = 1; i<tekst.length;i++) { //teller ikke første tegn hvis minus i tilfelle negative tall
+                if (tekst.includes("-",i)) {
+                    iOp = i
+                }
+            }
+            operation = "-";
+        } else {
+            operation = null;
+            innEl.value = tekst;
+        }
+
+        if (operation !== null) {
+            let tall1 = Number(tekst.substr(0,iOp)); // deler string fra 0 til tegn
+            let tall2 = Number(tekst.substr(iOp+1)); //når lengden mangler tas hele resten | deler string fra etter pluss
+            let svar;
+            console.log(iOp,tall1,tall2);
+            if (operation === "+") {
+                svar = tall1 + tall2;
+            } else if (operation === "-") {
+                svar = tall1 - tall2;
+            } else if (operation === "*") {
+                svar = tall1 * tall2;
+            } else if (operation === "/") {
+                if (tall2 === 0) {
+                    svar = "NaN"
+                } else {
+                    svar = tall1 / tall2;
+                }
+            }
+            if (tekst === "9+10") {
+                svar = "21";
+            }
+            if (svar != "NaN") { //skriver kun ut hvis det er et tall
+                if (String(svar).includes(".")) { //hvis det er kommatall i svar så finner 
+                    hel = String(svar).indexOf(".");
+                } else {
+                    hel = 0;
+                }
+                svar = Math.round(svar * 10**(15-hel)) / 10**(15-hel);
+                innEl.value = svar;
+            }
+        }   
+    }
+
+    function innfunk (event){
+        finnId(event.key);
+        if (knappId != null) {
+            knappId.style.opacity = "50%";
+        }
+            if (event.keyCode === 13){
+            utfunk(event);
+            regnUt();
+        }
+    }
+    </script>
+    <script src="scripts/koder.js"></script>
+    <script src="scripts/topbar.js"></script>
+    <script>
+        window.onload = function() {
+            let tekstVal = document.querySelector("#tittel").innerHTML;
+            setInterval(draw, 50, tekstVal);
+            setTimeout(function() {
+                document.querySelector("#load").remove();
+                document.querySelector("body").style.overflowY = "visible";               
+            },150);
+        };
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koalas</title>
+    <link rel="stylesheet" href="styles/topbar.css">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/fonts.css">
+    <style>
+        #main {
+            display: grid;
+            place-items: center;
+            overflow-x: hidden;
+        }
+        @media screen and (max-width: 425px) {
+            #sirkler {
+                transform: scale(70%) translateX(-20%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="head">
+        <h1 id="tittel">SKRAPEKORT</h1>
+        <ul id="index">
+            <a href="index.html"><li id="indexNavn">Hjem</li></a>
+            <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+            <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+            <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+        </ul>
+    </div>
+    <div id="main">
+        <canvas id="lerret" width="512px" height="512px" style="border:1px solid #000000;"></canvas> <!-- definerer lerretet med en kant-->
+        <svg id="sirkler" width="512" height="512"></svg>
+    </div>
+    <script>
+        let lerretEl = document.querySelector("#lerret"); 
+        let bildeEl = document.createElement("img");
+        let filnavn = ["ducks.jpg","hund.jpg","neffy.jpg","kitty.jpg","cat.jpg","pizza.jpg","tea.jpg"];
+        let placement = Math.floor(Math.random()*filnavn.length);
+        console.log(placement);
+        bildeEl.src = "ressurser/koalas/"+filnavn[placement];
+        bildeEl.style.width = "400px";
+        document.querySelector("#main").appendChild(bildeEl);
+        let context = lerretEl.getContext("2d");
+        bildeEl.onload = function() {
+            let bredde = bildeEl.naturalWidth; //finner bredden av bildet
+            let hoyde = bildeEl.naturalHeight; // finner høyden av bildet
+            let startHeight = 0;
+            let startWidth = 0;
+            if (bredde < hoyde) { //dersom bredden er mindre enn høyden, vil høyden bli kuttet av øverst og nederst i bildet, og motsatt dersom bredden er større
+                startHeight = (hoyde-bredde)/2
+                hoyde = bredde;
+            } else if (hoyde < bredde) {
+                startWidth = (bredde-hoyde)/2
+                bredde = hoyde;
+            }
+            
+            context.drawImage(bildeEl,startWidth,startHeight,bredde,hoyde,0,0,512,512); //plasserer bildet i lerettet med en 1:1 ratio
+            makeCircle(0,0,512);
+        }
+        function findAvg(x,y,length) {
+            let piksler = context.getImageData(x,y,length,length); //henter bildedata
+            
+            function lagliste(start) { //lager tre lister liste med alle røde, grønne og blå rgb-verdier i pikslene
+                let liste = [];
+                for (i=start; i<length**2*4;i+=4) {
+                liste.push(piksler.data[i]);
+                }
+                return liste;
+            }
+            
+            let red = lagliste(0);
+            let green = lagliste(1);
+            let blue = lagliste(2);
+            
+
+            function average(liste) { //lager en funksjon for å finne gjennomsnittlig verdi av en liste
+                let sum = 0;
+                for (i = 0; i < liste.length; i++) {
+                    sum += liste[i];
+                }
+                return Math.round(sum/liste.length)
+            }
+
+            let redAvg = average(red); //finner gjennomsnittlig verdi av r g og b verdiene
+            let blueAvg = average(blue);
+            let greenAvg = average(green);
+
+            let farge = "rgb("+redAvg+","+greenAvg+","+blueAvg+")"; 
+            return farge;
+        }
+
+        let hovedEl = document.querySelector("#sirkler"); 
+        let tally = 0;
+
+        function makeCircle(x,y,width) {
+            let sirkel = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            document.createElement("div")
+            sirkel.setAttribute("cx",x+width/2);
+            sirkel.setAttribute("cy",y+width/2);
+            sirkel.setAttribute("r",width/2);
+            sirkel.setAttribute("fill",findAvg(x,y,width));
+            hovedEl.appendChild(sirkel); //lager div
+            if (width > 4) {
+                setTimeout(function() {
+                    sirkel.addEventListener("mouseenter",boom); 
+                    /**
+                    sirkel.addEventListener("touchend",boom); 
+                    sirkel.addEventListener("touchcancel",boom); 
+                    sirkel.addEventListener("touchmove",boom); **/
+                },200)
+            } else {
+                tally++;
+                if (tally === 128*128) {
+                    alert("Yay");
+                }
+            }
+        }
+
+    
+        
+
+        function boom(event) {
+            let x = parseFloat(event.target.getAttribute("cx"));
+            let y = parseFloat(event.target.getAttribute("cy"));
+            let width = parseFloat(event.target.getAttribute("r"));
+            makeCircle(x,y,width);
+            makeCircle(x-width,y,width);
+            makeCircle(x,y-width,width);
+            makeCircle(x-width,y-width,width);
+            event.target.remove();
+        }
+
+        
+    
+        document.querySelector("img").style.display = "none";
+        document.querySelector("canvas").style.display = "none";
+    </script>
+    <script src="scripts/koder.js"></script>
+    <script src="scripts/topbar.js"></script>
+    <script>
+        window.onload = function() {
+            let tekstVal = document.querySelector("#tittel").innerHTML;
+            setInterval(draw, 50, tekstVal);
+            setTimeout(function() {
+                document.querySelector("#load").remove();
+                document.querySelector("body").style.overflowY = "visible";               
+            },150);
+        };
+    </script>
+</body>
+</html>

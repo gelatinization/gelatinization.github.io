@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kommentar</title>
+        <link rel="stylesheet" href="styles/topbar.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/comment.css">
+    </head>
+    <body>
+        <div id="head">
+            <h1 id="tittel">KOMMENTER :D</h1>
+            <ul id="index">
+                <a href="index.html"><li id="indexNavn">Hjem</li></a>
+                <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+                <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+                <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+            </ul>
+        </div>
+        <div id="main">
+            <div id="woo">
+                <div>
+                    <form action="lagreinfo.php" method="post">
+                        <label for="navn">Navn: <br><input name="navn" type="text" required placeholder="Brukernavn" id="navn" maxlength="16"></label><br>
+                        <label for="tekstboks">Kommentar: <br></label><textarea name="tekst" placeholder="Skriv tekst her..." maxlength="255" id="tekstboks" rows="5" cols="51"></textarea><br>
+                        <label for="samtykke"><input type="checkbox" id="samtykke">Jeg aksepterer <span id="show">vilkårene for kommentering</span><br></label>
+                        <input type="submit" name="lagre" value="lagre" id="knapp">
+                    </form>
+                </div>
+                <div id="vilkar">
+                    Ved å kommentere godtar du at ditt brukernavn og din kommentar vises på nettsiden. Du kan ikke redigere på kommentaren i ettertid, dersom du ønsker å fjerne en kommentar, ta kontakt med meg. <br>
+                    Vis respekt i kommentarfeltet.
+                </div>
+            </div>
+        </div>
+        <script src="scripts/koder.js"></script>
+        <script src="scripts/topbar.js"></script>
+        <script>
+            let boksEl = document.querySelector("#samtykke");
+            let submitEl = document.querySelector("#knapp");
+            let showEl = document.querySelector("#show");
+            boksEl.addEventListener("click",change);
+            showEl.addEventListener("click",vis);
+            change();
+            function change() {
+                if (boksEl.checked) {
+                    submitEl.style.display = "block";
+                } else {
+                    submitEl.style.display = "none";
+                }
+            }
+            function vis() {
+                document.querySelector("#vilkar").style.opacity = "1";
+                if (boksEl.checked) {
+                    boksEl.checked = false;
+                } else {
+                    boksEl.checked = true;
+                }
+                showEl.removeEventListener("click",vis);
+            }
+        </script>
+        <script>
+            window.onload = function() {
+                let tekstVal = document.querySelector("#tittel").innerHTML;
+                setInterval(draw, 50, tekstVal);
+                setTimeout(function() {
+                    document.querySelector("#load").remove();
+                    document.querySelector("body").style.overflowY = "visible";               
+                },150);
+            };
+        </script>
+    </body>
+</html>

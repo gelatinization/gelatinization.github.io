@@ -1,0 +1,17 @@
+@font-face {
+    font-family: hornbill;
+    src: url(../ressurser/Hornbill-Personal\ Use\ Black.woff2); /** https://www.dafont.com/hornbill.font **/
+  }
+@font-face {
+    font-family: superFunky;                /** https://www.fontspace.com/super-funky-font-f100518 **/
+    src: url(../ressurser/superFunky.woff2);
+  }
+@font-face {
+    font-family: jellee-bold;                /** https://fontlibrary.org/en/font/jellee-typeface open font licence**/
+    src: url(../Jellee-Bold.woff2);
+  }
+
+@font-face {
+    font-family: Generale;
+    src: url(../ressurser/GeneraleStation-Regular.woff2) /** https://fontlibrary.org/en/font/generale-station **/
+  }

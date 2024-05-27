@@ -1,0 +1,90 @@
+#content > div {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    display: none;
+    justify-content: left;
+}
+
+
+#paralax {
+    background-image: url("../ressurser/ludao.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    text-align: center;
+}
+
+#paralax > p {  
+    position: relative;
+    top: -100%;
+}
+
+.idk {
+    width: 40vw;
+    height: 40vw;
+    
+}
+#kunst > .idk{
+    background-image: url("../ressurser/kunstbilder/star1.png");
+    background-size: cover;
+}
+#digitalt > .idk {
+    background-image: url("../ressurser/kunstbilder/Corn.png");
+    background-size: cover;
+}
+
+
+.door {
+    width: 40vw;
+    height: 40vw;
+    
+}
+#beskrivelse {
+    height: 20vw;
+}
+
+
+
+@media screen and (max-width: 425px) {
+    #beskrivelse {
+        height: 40vw;
+    }
+    #bokser {
+        grid-template-rows: repeat(2,1fr);
+        grid-template-columns: 1fr;
+        margin: 0%;
+        gap: 20px;
+        height: 100%;
+    }
+    #bokser > div, #cover {
+        width: 300px;
+        height: 300px;
+    }
+    #bokser > div > a > p {
+        font-size: 15px;
+        gap: 25px;
+    }
+    .door {
+        width: 80vw;
+        height: 80vw;
+    }
+    .open {
+        height: auto;
+    }
+    
+    #paralax {
+        width: 400px;
+        height: 35vw;
+        margin: auto;
+        background-image: url("../ressurser/utsikt.jpg");
+        background-size: 800px;
+        background-position: bottom;
+    }
+    .idk {
+        width: 80vw;
+        height: 80vw;
+    }
+}

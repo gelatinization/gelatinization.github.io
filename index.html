@@ -1,11 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Hello and goobye world!</h1>
-</body>
+<html>
+    <head>
+        <title>GELATINIZATION</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles/topbar.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/hjem.css">
+        <link rel="icon" type="image/x-icon" href="ressurser/door1.gif">
+    </head>
+    <body>
+        <div id="head">
+            <h1 id="tittel">HJEM</h1>
+            <ul id="index">
+                <a href="index.html"><li id="indexNavn">Hjem</li></a>
+                <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+                <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+                <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+            </ul>
+        </div>
+        <audio>
+            <source src="ressurser/doornoise.mp3" type="audio/mp3"> <!-- lyd fra https://pixabay.com/no/sound-effects/automatic-elevator-door-104899/ -->
+        </audio>
+        <div id="main">  
+            <div>
+                <div id="beskrivelse" class="box">
+                    <div>
+                        <h1>Velkommen til nettsiden min!</h1>
+                        <p>Dette er hovedsiden</p>
+                    </div>
+                </div>
+                <hr>
+                
+                <div id="kunst" class="box">
+                    <a href="kunst.html" class="idk">
+                        <img src="ressurser/door1.png" class="door" width="350px" height="350px" style="opacity: 1;">
+                    </a>
+                    <div class="info">
+                        <h1>Mine Prosjekter</h1>
+                        <button class="open">Åpne dør</button>
+                    </div>
+                </div>
+                <hr> 
+                <div id="paralax" class="box"></div>
+                <hr>
+                <div id="digitalt" class="box">
+                    <a href="digitalt.html" class="idk">
+                        <img src="ressurser/door1.png" class="door" width="350px" height="350px" style="opacity: 1;">
+                    </a>
+                    <div class="info">
+                        <h1>Digitale Prosjekter</h1>
+                        <button class="open">Åpne dør</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let knappEls = document.querySelectorAll(".open");
+            for (i = 0; i < knappEls.length; i++) {
+                knappEls[i].addEventListener("click",åpneFunk);
+            }
+
+            function åpneFunk(event) {
+                let door = event.target.parentElement.parentElement.childNodes[1].childNodes[1]
+                if (event.target.innerHTML === "Åpne dør") {
+                    door.src = "ressurser/door.gif";
+                    for (i = 0; i < knappEls.length; i++) {
+                            knappEls[i].removeEventListener("click",åpneFunk);
+                    }
+                    setTimeout(function() {
+                        door.src = "ressurser/open.png";
+                        for (i = 0; i < knappEls.length; i++) {
+                            knappEls[i].addEventListener("click",åpneFunk);
+                        }            
+                    },1700);
+                    event.target.innerHTML = "Lukk dør";
+                } else {
+                    door.src = "ressurser/door1.gif";
+                    for (i = 0; i < knappEls.length; i++) {
+                            knappEls[i].removeEventListener("click",åpneFunk);
+                    }
+                    setTimeout(function() {
+                        door.src = "ressurser/door1.png";
+                        for (i = 0; i < knappEls.length; i++) {
+                            knappEls[i].addEventListener("click",åpneFunk);
+                    }             
+                    },1700);
+                    event.target.innerHTML = "Åpne dør";
+                }
+                document.querySelector("audio").play();  
+            }
+        </script>
+        <script src="scripts/koder.js"></script>
+        <script src="scripts/topbar.js"></script>
+        <script>
+            window.onload = function() {
+                let tekstVal = document.querySelector("#tittel").innerHTML;
+                setInterval(draw, 50, tekstVal);
+                setTimeout(function() {
+                    document.querySelector("#load").remove()
+                    document.querySelector("body").style.overflowY = "visible";               
+                },150);
+            };
+        </script>
+    </body>
 </html>

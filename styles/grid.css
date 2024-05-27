@@ -1,0 +1,48 @@
+#bilder {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    padding-top: 50px;
+}
+
+.bilde {
+    width: 100%;
+    margin: auto;
+}
+.bilde:hover {
+    opacity: 75%;
+}
+
+
+#button {
+    display: flex;
+    justify-content: center;
+}
+
+#imgClose {
+    position: fixed;
+    background-color: transparent;
+    width: 100%;
+    display: none;
+}
+.imgclose {
+    position: relative;
+    margin: auto 100px;
+    background-color: blue;
+    width: 200px;
+}
+
+#last {
+    text-align: center;
+    margin: 20px;
+}
+
+@media screen and (max-width: 425px) {
+    #loadMore {
+        width: 50%;
+    }
+    #bilder {
+        padding-top: 5px;
+        gap: 10px;
+    }
+}

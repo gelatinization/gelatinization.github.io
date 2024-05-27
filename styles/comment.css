@@ -1,0 +1,122 @@
+
+.pad {
+    background-color: #5D467E;
+    max-width: 400px;
+    height: auto;
+    padding: 15px;
+    display: grid;
+    grid-template-areas: 
+    "a b" 
+    "c c";
+    grid-template-rows: 25px auto;
+    grid-template-columns: auto 150px;
+    margin: 10px;
+}
+.brukernavn
+{
+    font-size: 20px;
+    grid-area: a;
+    align-self: center;
+}
+#woo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+}
+#vilkar {
+    opacity: 0;
+}
+#knapp {
+    margin: 10px;
+}
+#show {
+    text-decoration: underline;
+}
+.tid {
+    font-size: 10px;
+    grid-area: b;
+    align-self: center;
+    text-align: right;
+    opacity: 75%;
+}
+.tekst {
+    font-size: 15px;
+    grid-area: c;
+    word-wrap: break-word;
+    max-width: 400px;
+}
+
+p {
+    margin: 0;
+}
+
+#kommentarer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+textarea, 
+#navn {
+    text-align: left;
+    caret-color: #29F4FF;
+    background-color: #300020;
+    color: #29F4FF;
+    font-family: Generale;
+    border: 3px solid #29F4FF;
+    margin: 10px;
+}
+
+textarea {
+    width: 450px;
+    height: 126px;
+    font-size: 15px;
+    resize: none;
+}
+
+#navn {
+    width: 300px;
+    height: 30px;
+    font-size: 20px;
+}
+
+label {
+    margin: 10px;
+}
+
+@media screen and (max-width: 425px) {
+    .pad {
+        max-width: 80vw;
+    }
+    textarea {
+        width: 340px;
+        height: 175px;
+        font-size: 15px;
+    }
+    .tekst {
+        font-size: 15px;
+        max-width: 78vw;
+    }
+    .brukernavn {
+        font-size: 18px;
+        grid-area: a;
+        align-self: center;
+    }
+    .tid {
+        font-size: 8px;
+        grid-area: b;
+        align-self: center;
+        text-align: right;
+        opacity: 75%;
+    }
+    #woo {
+        grid-template-columns: 1fr;
+        grid-template-rows: 120vw 50vw;
+        height: 170vw;
+        place-items: center;
+    }
+    #vilkar {
+        word-wrap: break-word;
+        width: 80wv;
+    }
+}

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="no">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Prosjekter</title>
+        <link rel="stylesheet" href="styles/topbar.css">
+        <link rel="stylesheet" href="styles/main.css">
+        <link rel="stylesheet" href="styles/fonts.css">
+        <link rel="stylesheet" href="styles/grid.css">
+    </head>
+    <body>
+        <div id="head">
+            <h1 id="tittel">DIGITALT</h1>
+            <ul id="index">
+                <a href="index.html"><li id="indexNavn">Hjem</li></a>
+                <a href="kunst.html"><li id="indexNavn">Kunst</li></a>
+                <a href="digitalt.html"><li id="indexNavn">Digital</li></a>
+                <a href="vegg.php"><li id="indexNavn">Kommenter</li></a>
+            </ul>
+        </div>
+        <div id="main">
+            <div id="typography" class="box">
+                <div class="sidebox"><h1 class="boxheader">VFX</h1></div>
+                <div class="info">
+                    <ul>
+                        <li>Kinetisk Typografi</li>
+                        <li>Matte Painting</li>
+                    </ul>
+                    <a href="digitalt.html" class="LinkKnapp"><p>kommer snart.</p></a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="sidebox"><h1 class="boxheader">Sirkler</h1></div>
+                <div class="info">
+                    <ul>
+                        <li>Inspirert av <a href="https://koalastothemax.com">koalastothemax.com</a></li>
+                        <li>Eller, mer en kopi</li>
+                    </ul>
+                    <a href="koalas.html" class="LinkKnapp"><p>Åpne side</p></a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="sidebox"><h1 class="boxheader">Lykkehjul</h1></div>
+                <div class="info">
+                    <ul>
+                        <li>Noen sa at lykkehjul var for vanskelig, så jeg tok det som en utfordring</li>
+                    </ul>
+                    <a href="lykkehjul.html" class="LinkKnapp"><p>Åpne side</p></a>
+                </div>
+            </div>
+            <div class="box">
+                <div class="sidebox"><h1 class="boxheader">Kalkulator</h1></div>
+                <div class="info">
+                    <ul>
+                        <li>En oppgave vi fikk</li>
+                        <li>Kan bare regne med to tall</li>
+                    </ul>
+                    <a href="kalkulator.html" class="LinkKnapp"><p>Åpne side</p></a>
+                </div>
+            </div>
+        </div>
+        <script src="scripts/koder.js"></script>
+        <script src="scripts/topbar.js"></script>
+        <script>
+            window.onload = function() {
+                let tekstVal = document.querySelector("#tittel").innerHTML;
+                setInterval(draw, 50, tekstVal);
+                setTimeout(function() {
+                    document.querySelector("#load").remove();
+                    document.querySelector("body").style.overflowY = "visible";               
+                },150);
+            };
+        </script>
+    </body>
+</html>

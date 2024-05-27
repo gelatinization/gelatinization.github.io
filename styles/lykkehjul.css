@@ -1,0 +1,77 @@
+#hjul {
+    width: 500px;
+    height: 500px;
+    border-radius: 500px;
+    background-color: #300020;
+    transform: rotate(0deg);
+    margin: 100px auto;
+}
+.holder {
+    width: 500px;
+    height: 500px; 
+    position: absolute; 
+}
+#pil {
+    width: 0;
+    height: 0;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 50px solid gray;
+    margin: auto;
+    position: relative;
+    top: -650px;
+}
+#hele {
+    margin: auto;
+}
+
+.del {
+    width: 0;
+    height: 0;
+    border-left: 144.3px solid transparent;
+    border-right: 144.3px solid transparent;
+    position: relative;
+    top: 0px;
+    left: 105.7px;
+}
+.delTekst {
+    transform: rotate(90deg);
+    color: #300020;
+}
+
+#sidebar {
+    display: flex;
+    flex-direction: column;
+}
+
+#faktiskHele {
+    display: grid;
+    grid-template-rows: 650px;
+    grid-template-columns: 70% 30%;
+    justify-content: center;
+    overflow-y: hidden;
+}
+#faktiskHele > div {
+    margin: auto;
+}
+textarea {
+    resize: none;
+}
+
+@media screen and (max-width: 425px) {
+    #hele {
+        transform: scale(65%) translateX(-20%) translateY(-25%); 
+        place-self: top center;
+    }
+    #sidebar {
+        place-self: bottom center;
+        transform: translateY(75%);
+    }
+    #faktiskHele {
+        grid-template-columns: 375px;
+        grid-template-rows: 300px 300px;
+        justify-content: center;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+}

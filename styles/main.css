@@ -1,0 +1,160 @@
+/*
+.theme {
+  color: #ff00ff;
+  background-color: rgb(48, 0, 32);
+
+  palette 2: #300020 #5D467E #6099E2 #29F4FF
+}
+*/ 
+
+
+#cookie {
+    position: sticky;
+    margin: auto;
+    background-color: #8f91a2ff;
+    opacity: 90%;
+    bottom: 0;
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    transition: 3s;
+}
+#cookie > button {
+    width: 50px;
+}
+#main {
+    background-color: rgb(48, 0, 32);
+    gap: 20px;
+    padding: 30px; 
+}
+
+button:hover,
+#knapp:hover,
+a:hover {
+    cursor: url("../ressurser/sprocket.png"),pointer;
+}
+
+
+button,
+.LinkKnapp,
+.button,
+#kalkulator > div,
+#knapp {
+    border: 3px #29F4FF solid;
+    font-family: Generale;
+    background-color: rgb(48, 0, 32);
+    color:#29F4FF;
+    text-decoration: solid;
+    padding: 1%;
+}
+
+button:hover,
+.LinkKnapp:hover,
+.button:hover {
+    background-color: #29F4FF;
+    color: rgb(48, 0, 32);
+}
+
+body {
+    font-family: Generale; 
+    background-color: #300020;
+    color: #29F4FF;
+    margin: 0;
+    cursor: url("ressurser/sproket.png"),auto;
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+
+.box {
+    height: 40vw;
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+}
+.info {
+    position: absolute;
+    display: grid;
+    place-items: end start;
+    width: 40vw;
+    height: 40vw;
+}
+.info > a,
+.info > button {
+    width: 70%;
+    margin: auto;
+    display: grid;
+    place-items: center;
+}
+.sidebox {
+    width: 50vw;
+    height: 40vw;
+    background-color: #6099E2;
+    background-size: cover;
+    color: #300020;
+    position: absolute;
+    display: grid;
+    place-items: center;
+}
+.box:nth-child(even) > .info {
+    left: 30px;
+}
+.box:nth-child(odd) > .info {
+    right: 30px;
+}
+.box:nth-child(even) > .sidebox {
+    border-radius: 70% 30% 30% 70% / 30% 30% 70% 70%;
+    right: 30px;
+}
+.box:nth-child(odd) > .sidebox {
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    left: 30px;
+}
+
+.boxheader {
+    font-size: 70px;
+    margin: 0;
+}
+.open {
+    height: 10vw;
+}
+
+
+
+@media screen and (max-width: 425px) {
+    #main {
+        margin: 0;
+        padding: 5px;
+    }
+    .boxheader {
+        font-size: 35px;
+        margin: 0;
+    }
+    .sidebox {
+        width: 80vw;
+        height: 80vw;
+    }
+    .info {
+        width: 80vw;
+        height: 50vw;
+    }
+    .info > ul > li {
+        font-size: 20px;
+    }
+    .info > a > p{
+        font-size: 20px;
+    }
+    .info > a{
+        height: auto;
+    }
+
+    .box {
+        grid-template-columns: 1fr;
+        grid-template-rows: 80vw 50vw;
+        height: 140vw;
+        place-items: center;
+    }
+    .box > div {
+        position: static;
+    }
+}

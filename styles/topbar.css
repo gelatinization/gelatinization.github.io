@@ -1,0 +1,119 @@
+
+#tittel {
+   font-family: Generale;
+   font-size: 0;
+   position: absolute;
+}
+
+#index {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    top: 300px;
+    gap: 20px;
+    position: absolute;
+    margin: auto;
+    left: 0;
+    right: 0;
+}
+#head {
+    height: 400px;
+}   
+#index > a {
+    text-decoration: none;
+    color: #29F4FF;
+    align-self: stretch;
+}
+#indexNavn {
+    padding: 20px;
+    border: 3px #29F4FF solid;
+    list-style-type: none;
+    text-align: center;
+    width: 160px;
+    font-size: 25px;
+}
+#indexNavn:hover {
+    background-color: #29F4FF;
+    color: rgb(48, 0, 32);
+}
+#idCanvas {
+    position: absolute;
+    top: 0;
+    background-color: black;
+}
+
+@keyframes blobb {
+    0%,100% { 
+        transform: scale(1, 1); 
+    }
+    25% {
+         transform: scale(0.9, 1.1); 
+    }
+    50% {
+         transform: scale(1.1, 0.9); 
+    }
+    75% {
+         transform: scale(0.95, 1.05); 
+    }
+}
+
+#laster > div {
+    animation: blobb 1.5s infinite ease-in-out;
+    background-color: #29F4FF;
+    width: 50px;
+    height: 50px;
+}
+
+#laster >div:nth-child(1) {
+    animation-delay: -0.5s;
+}
+#laster >div:nth-child(3) {
+    animation-delay: 0.5s;
+}
+#laster {
+    display: grid;
+    gap: 30px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+#load {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    background-color: rgb(48, 0, 32);
+    display: grid;
+    place-items: center;
+}
+
+@media screen and (max-width: 425px) {
+    #tittel {
+        font-size: 30px;
+    }
+    #indexNavn {
+        width: 200px;
+        font-size: 30px;
+        padding: 5px;
+        margin: auto;
+    }
+    #index {
+        padding: 0px;
+        margin: 0;
+        top: 240px;
+        flex-direction: column;
+        display: none;
+    }
+    #head {
+        height: 200px;
+    }
+    #menu {
+        position: absolute;
+        top: 120px;
+        background-color: #6099E2;
+        font-size: 40px;
+        text-align: center;
+        width: 100%;
+        color: #300020;
+    }
+
+}

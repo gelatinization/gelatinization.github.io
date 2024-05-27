@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="inn">
+    <script>
+        let innEl = document.querySelector("#inn");
+        let gang = 0;
+        let navn = [];
+        let tall = [];
+        let liste = [];
+
+        innEl.addEventListener("keydown", lagreFunk);
+
+        function lagreFunk(event) {
+            if (event.keyCode === 13) {
+                if (gang < 3) {
+                    navn.push(event.target.value);
+                    event.target.value = "";
+                } else if (gang < 6) {
+                    tall.push(parseFloat(event.target.value))
+                    event.target.value = "";
+                } 
+                if (gang === 5) {
+                    liste.push(navn,tall)
+                }
+                gang++;
+            }
+        }
+    </script>
+</body>
+</html>
