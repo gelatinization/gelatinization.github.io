@@ -1,10 +1,21 @@
 {
-    "functions": {
-      "api/*.php": {
-        "runtime": "vercel-php@0.7.1"
-      }
-    },
-    "routes": [
-      { "src": "/(.*)",  "dest": "/api/index.php" }
-    ]
-  }
+  "functions": {
+    "api/*.php": {
+      "runtime": "vercel-php@0.7.1",
+      "includeFiles": "api/**",
+      "excludeFiles": [
+        "api/tests/**",
+        "api/.git/**",
+        "api/node_modules/**",
+        "api/vendor/**",
+        "api/.env",
+        "api/.vscode/**",
+        "api/.DS_Store",
+        "api/*.log"
+      ]
+    }
+  },
+  "routes": [
+    { "src": "/(.*)",  "dest": "/api/index.php" }
+  ]
+}
